@@ -18,7 +18,7 @@ void update(int idx, ll val) {
     idx += S;
     sum_seg[idx] = val;
     min_seg[idx] = val;
-    while(idx /= 2){
+    while (idx >>= 1) {
         sum_seg[idx] = sum_seg[2 * idx] + sum_seg[2 * idx + 1];
         min_seg[idx] = min(min_seg[2 * idx], min_seg[2 * idx + 1]);
     }
@@ -35,11 +35,13 @@ void init() {
     }
 }
 
-ll getSum(int l, int r, int b, int e, int idx) {
-    if (b >= l && e <= r) return sum_seg[idx];
-    if (l >= e || r <= b) return 0;
-    int mid = (b + e) / 2;
-    return getSum(l, r, b, mid, idx * 2) + getSum(l, r, mid, e, idx * 2 + 1);
+ll getSum(int l, int r) {
+    ll ret = 0;
+    for (l += S, r += S; l <= r; l >>= 1, r >>= 1) {
+        if (l & 1) ret += sum_seg[l++];
+        if (r & 1 ^ 1) ret += sum_seg[r--];
+    }
+    return ret;
 }
 
 void query(int i, int j, int b, int e, int idx) {
@@ -76,7 +78,7 @@ void solve() {
             lo = -1;
             hi = S + 1;
             query(i - 1, j, 0, S, 1);
-            cout << getSum(lo + 1, hi - 1, 0, S, 1) << '\n';
+            cout << getSum(lo + 1, hi - 2) << '\n';
         }
     }
 }
