@@ -49,6 +49,7 @@ void query(int i, int j, int b, int e, int idx) {
         return;
     }
     int mid = (b + e) / 2;
+    if (min_seg[idx] >= j) return;
     if (i < mid) {
         if (min_seg[2 * idx] < j)
             query(i, j, b, mid, 2 * idx);
