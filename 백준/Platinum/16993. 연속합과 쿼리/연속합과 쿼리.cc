@@ -15,7 +15,7 @@ int MIN = -1e9;
 vector<ai4> seg;
 ai4 e = { MIN, MIN, MIN, 0 };
 
-ai4 oper(ai4 u, ai4 v) {
+ai4 oper(ai4& u, ai4& v) {
 	auto [l1, r1, M1, s1] = u;
 	auto [l2, r2, M2, s2] = v;
 	int lM = max(s1 + l2, l1);
