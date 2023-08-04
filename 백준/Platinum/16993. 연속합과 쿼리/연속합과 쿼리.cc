@@ -13,6 +13,18 @@ using namespace std;
 int n, S = 1;
 int MIN = -1e9;
 vector<ai4> seg;
+ai4 e = { MIN, MIN, MIN, 0 };
+
+ai4 oper(ai4 u, ai4 v) {
+	auto [l1, r1, M1, s1] = u;
+	auto [l2, r2, M2, s2] = v;
+	int lM = max(s1 + l2, l1);
+	int rM = max(r1 + s2, r2);
+	int M = max(r1 + l2, max(lM, rM));
+	M = max(M, max(M1, M2));
+	int s = s1 + s2;
+	return { lM, rM, M, s };
+}
 
 void init() {
 	while (S < n) S <<= 1;
@@ -26,30 +38,18 @@ void init() {
 	while (SS /= 2) {
 		for (int i = 0; i < SS; i++) {
 			int j = i + SS;
-			auto& [l, r, M, s] = seg[j];
-			l = max(seg[2 * j][3] + seg[2 * j + 1][0], seg[2 * j][0]);
-			r = max(seg[2 * j][1] + seg[2 * j + 1][3], seg[2 * j + 1][1]);
-			M = max(max(l, r), seg[2 * j][1] + seg[2 * j + 1][0]);
-			M = max(M, max(seg[2 * j][2], seg[2 * j + 1][2]));
-			s = seg[2 * j][3] + seg[2 * j + 1][3];
+			seg[j] = oper(seg[2 * j], seg[2 * j + 1]);
 		}
 	}
 }
 
-ai4 query(int l, int r, int b, int e, int idx) {
-	if (b >= l && e <= r) return seg[idx];
-	if (l >= e || r <= b) return { MIN, MIN, MIN, 0 };
-	int mid = (b + e) / 2;
-	auto [l1, r1, M1, s1] = query(l, r, b, mid, idx * 2);
-	auto [l2, r2, M2, s2] = query(l, r, mid, e, idx * 2 + 1);
-
-	int lM = max(s1 + l2, l1);
-	int rM = max(r1 + s2, r2);
-	int M = max(r1 + l2, max(lM, rM));
-	M = max(M, max(M1, M2));
-	int s = s1 + s2;
-	return { lM, rM, M, s };
-
+ai4 query(int l, int r) {
+	ai4 lret = e, rret = e;
+	for (l += S, r += S; l <= r; l >>= 1, r >>= 1) {
+		if (l & 1) lret = oper(lret, seg[l++]);
+		if (r & 1 ^ 1) rret = oper(seg[r--], rret);
+	}
+	return oper(lret, rret);
 }
 
 void solve() {
@@ -58,7 +58,7 @@ void solve() {
 	int q; cin >> q;
 	while (q--) {
 		int i, j; cin >> i >> j;
-		cout << query(i - 1, j, 0, S, 1)[2] << '\n';
+		cout << query(i - 1, j - 1)[2] << '\n';
 	}
 }
 
