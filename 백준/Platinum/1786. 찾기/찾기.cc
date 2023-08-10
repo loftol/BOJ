@@ -9,63 +9,46 @@
 
 using namespace std;
 
-vector<int> fail;
-
-void makeFail(string& pat) {
-	int i = 1, j = 0;
-	fail = vector<int>(pat.size() + 1, 0);
-	while (i + j < pat.size()) {
-		if (!fail[i + j]) fail[i + j] = j;
-		if (pat[i + j] == pat[j]) j++;
-		else {
-			if (j == 0) i++;
-			else {
-				i = i + j - fail[j];
-				j = fail[j];
-			}
-		}
-	}
-	fail[i + j] = j;
-}
-
-vector<int> kmp(string& str, string& pat) {
-	vector<int> ret;
-	int i = 0, j = 0;
-	while (i + j < str.size()) {
-		if (j == pat.size()) {
-			ret.push_back(i);
-			i = i + j - fail[j];
-			j = fail[j];
-		}
-		else if (str[i + j] == pat[j]) j++;
-		else {
-			if (j == 0) i++;
-			else {
-				i = i + j - fail[j];
-				j = fail[j];
-			}
-		}
-	}
-	if (j == pat.size()) ret.push_back(i);
-
-	return ret;
-}
-
 void solve() {
 	string str, pat;
 	getline(cin, str);
 	getline(cin, pat);
 
-	makeFail(pat);
-	vector<int> ans = kmp(str, pat);
+	int n = str.size(), m = pat.size();
+	ll pat_hash = 0;
+	ll top_val = 1;
+	int base = 27;
+	int MOD = (1 << 30) - 1;
+	ll str_hash = 0;
 
-	cout << ans.size() << '\n';
-	for (int& i : ans) cout << i + 1 << '\n';
+	for (int i = 0; i < m; i++) {
+		top_val *= base;
+		top_val %= MOD;
+		str_hash *= base, pat_hash *= base;
+		str_hash += str[i], pat_hash += pat[i];
+		pat_hash %= MOD, str_hash %= MOD;
+	}
+
+	vector<int> ret;
+	if (str_hash == pat_hash) ret.push_back(0);
+
+	top_val = MOD - top_val;
+
+	for (int i = 1; i < n - m + 1; i++) {
+		str_hash *= base;
+		str_hash += str[i + m - 1];
+		str_hash += top_val * str[i - 1];
+		str_hash %= MOD;
+		if (str_hash == pat_hash) ret.push_back(i);
+	}
+
+	cout << ret.size() << '\n';
+	for (int& i : ret) cout << i + 1 << ' ';
 
 	return;
 }
 
-int main(){
+int main() {
 	ios::sync_with_stdio(0); cin.tie(0); cout.tie(0);
 #ifndef ONLINE_JUDGE
 	freopen("input.txt", "r", stdin);
