@@ -1,5 +1,3 @@
-from collections import Counter
-
 n = int(input())
 ans = [0, 0, 0, 0]
 arr = list(map(int, input().split()))
