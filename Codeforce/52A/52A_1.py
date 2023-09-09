@@ -1,5 +1,5 @@
 n = int(input())
-ans = [0, 0, 0, 0]
+ans = [0] * 4
 arr = list(map(int, input().split()))
 for a in arr:
     ans[a] += 1
