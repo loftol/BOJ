@@ -23,10 +23,9 @@ void solve() {
 	dial[0].push_back(s);
 	dst[0] = 0;
 
-	int cnt = n;
+	int cnt = 1;
 	int hdst = 0;
-	int unvisited = 0;
-	while (cnt && unvisited < 100000) {
+	while (cnt) {
 		int mhdst = hdst % 100001;
 		bool visted = false;
 		while (dial[mhdst].size()) {
@@ -45,13 +44,12 @@ void solve() {
 					swap(dial[u].back(), dial[u][v]);
 					dial[u].pop_back();
 				}
+				else cnt++;
 				index[next] = { mndst, (int)dial[mndst].size() };
 				dst[next] = ndst;
 				dial[mndst].push_back(next);
 			}
 		}
-		if (!visted) unvisited++;
-		else unvisited = 0;
 		hdst++;
 	}
 
