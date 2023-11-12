@@ -1,11 +1,15 @@
 n = int(input())
-arr = []
-for i in range(n):
-    x, y = list(map(int, input().split()))
-    arr.append([x, y])
+weight = []
+height = []
 
-for x, y in arr:
-    cnt = 0
-    for x1, y1 in arr:
-        if(x1 > x and y1 > y) : cnt+=1
-    print(cnt + 1, end=' ')
+for i in range(n):
+    w, h = map(int, input().split())
+    weight.append(w)
+    height.append(h)
+
+for i in range(n): # fix
+    rank = 1
+    for j in range(n): # compare
+        if(weight[j] > weight[i] and height[j] > height[i]):
+            rank += 1
+    print(rank, end = ' ')
