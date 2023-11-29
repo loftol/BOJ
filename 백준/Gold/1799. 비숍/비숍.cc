@@ -9,8 +9,7 @@ int INF = 50000000;
 
 void solve() {
     int n; cin >> n;
-    vector<vector<int>> board0(n, vector<int>(n));
-    vector<vector<int>> board1 = board0, board2(n, vector<int>(n));
+    vector<vector<int>> board1(n, vector<int>(n)), board2(n, vector<int>(n));
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
             int x = (i + j) / 2, y = (j - i + n + 1) / 2 - 1;
