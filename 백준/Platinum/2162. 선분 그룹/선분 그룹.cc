@@ -53,12 +53,8 @@ void solve() {
         auto [b1, b2] = segs[b];
         int ccw1 = ccw(b1, b2, a1) * ccw(b1, b2, a2);
         int ccw2 = ccw(a1, a2, b1) * ccw(a1, a2, b2);
-        if (ccw1 == 0 && ccw2 == 0) {
-            if (a2 >= b1) return true;
-            else return false;
-        }
-        else if (ccw1 <= 0 && ccw2 <= 0) return true;
-        else return false;
+        if (ccw1 == 0 && ccw2 == 0) return b1 <= a2;
+        return ccw1 <= 0 && ccw2 <= 0;
     };
 
     int num = n;
