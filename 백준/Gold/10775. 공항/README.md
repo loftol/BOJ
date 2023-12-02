@@ -4,33 +4,37 @@
 
 ### 성능 요약
 
-메모리: 2412 KB, 시간: 12 ms
+메모리: 2412 KB, 시간: 16 ms
 
 ### 분류
 
 자료 구조, 분리 집합, 그리디 알고리즘
 
+### 제출 일자
+
+2023년 12월 2일 16:14:11
+
 ### 문제 설명
 
-<p>For your birthday, you were given an airport.</p>
+<p>오늘은 신승원의 생일이다.</p>
 
-<p>The airport has G gates, numbered from 1 to G.</p>
+<p>박승원은 생일을 맞아 신승원에게 인천국제공항을 선물로 줬다.</p>
 
-<p>P planes arrive at the airport, one after another. You are to assign the ith plane to permanently dock at any gate 1, . . . , g<sub>i</sub> (1 ≤ g<sub>i</sub> ≤ G), at which no previous plane has docked. As soon as a plane cannot dock at any gate, the airport is shut down and no future planes are allowed to arrive.</p>
+<p>공항에는 G개의 게이트가 있으며 각각은 1에서 G까지의 번호를 가지고 있다.</p>
 
-<p>In order to keep the person who gave you the airport happy, you would like to maximize the number of planes starting from the beginning that can all dock at different gates.</p>
+<p>공항에는 P개의 비행기가 순서대로 도착할 예정이며, 당신은 i번째 비행기를 1번부터 g<sub>i</sub> (1 ≤ g<sub>i</sub> ≤ G) 번째 게이트중 하나에 영구적으로 도킹하려 한다. 비행기가 어느 게이트에도 도킹할 수 없다면 공항이 폐쇄되고, 이후 어떤 비행기도 도착할 수 없다.</p>
+
+<p>신승원은 가장 많은 비행기를 공항에 도킹시켜서 박승원을 행복하게 하고 싶어한다. 승원이는 비행기를 최대 몇 대 도킹시킬 수 있는가?</p>
 
 ### 입력 
 
- <p>The first line of input contains G (1 ≤ G ≤ 10<sup>5</sup>), the number of gates at the airport.</p>
+ <p>첫 번째 줄에는 게이트의 수 G (1 ≤ G ≤ 10<sup>5</sup>)가 주어진다.</p>
 
-<p>The second line of input contains P (1 ≤ P ≤ 10<sup>5</sup>), the number of planes which will land.</p>
+<p>두 번째 줄에는 비행기의 수 P (1 ≤ P ≤ 10<sup>5</sup>)가 주어진다.</p>
 
-<p>The next P lines contain one integer g<sub>i</sub> (1 ≤ g<sub>i</sub> ≤ G), such that the ith plane must dock at some gate from 1 to g<sub>i</sub>, inclusive.</p>
-
-<p>Note that for at least 40% of the marks for this question, P ≤ 2000 and G ≤ 2000.</p>
+<p>이후 P개의 줄에 g<sub>i</sub> (1 ≤ g<sub>i</sub> ≤ G) 가 주어진다.</p>
 
 ### 출력 
 
- <p>Output the maximum number of planes that can land starting from the beginning.</p>
+ <p>승원이가 도킹시킬 수 있는 최대의 비행기 수를 출력한다.</p>
 
