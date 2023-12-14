@@ -1,34 +1,29 @@
 #include <bits/stdc++.h>
-#include <array>
+#include<array>
 
 using namespace std;
 
 #define pii array<int, 2>
 #define ll long long
-#define pll array<ll, 2>
+#define tll array<ll, 3>
 
 
-pll eeu(ll a, ll b) { 
-	if (a == 1) return { 0, 1 };
+tll eeu(ll a, ll b) { 
+	if (a == 0) return { b, 1, 0 };
 	else {
-		auto [x, y] = eeu(b % a, a);
-		return { y, x + b / a * y };
+		auto [g, x, y] = eeu(b % a, a);
+		return { g, y, x + b / a * y };
 	}
 }
 
 void solve() {
 	ll a, b; cin >> a >> b;
-	ll g = gcd(a, b);
 	ll s = a - b;
-	ll p = -1;
-	if (g == 1) {
-		auto [x, y] = eeu(a, b);
-		if (a * y > b * x) x *= -1;
-		x %= a;
-		x += a;
-		x %= a;
-		p = x;
-	}
+	
+	auto [g, x, y] = eeu(a, b);
+	if (a * y > b * x) x *= -1;
+	x = (a + x) % a;
+	ll p = (g - 1)? -1 : x;
 	cout << s << ' ' << p;
 }
 
