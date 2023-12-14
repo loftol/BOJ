@@ -12,18 +12,16 @@ tll eeu(ll a, ll b) {
 	if (a == 0) return { b, 1, 0 };
 	else {
 		auto [g, x, y] = eeu(b % a, a);
-		return { g, y, x + b / a * y };
+		return { g, y, x - b / a * y };
 	}
 }
 
 void solve() {
 	ll a, b; cin >> a >> b;
 	ll s = a - b;
-	
 	auto [g, x, y] = eeu(a, b);
-	if (a * y > b * x) x *= -1;
 	x = (a + x) % a;
-	ll p = (g - 1)? -1 : x;
+	ll p = (g - 1) ? -1 : x;
 	cout << s << ' ' << p;
 }
 
