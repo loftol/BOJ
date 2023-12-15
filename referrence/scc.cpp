@@ -1,3 +1,4 @@
+// tarjan 알고리즘 - 위상정렬은 번호 역순임에 주의
 vector<int> sccID(n + 1), vst(n + 1), stk, SCC; // n은 정점 개수
 function<int(int)> make_scc = [&](int here) {
 	if (vst[here]) return vst[here];
