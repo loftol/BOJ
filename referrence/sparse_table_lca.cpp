@@ -40,3 +40,29 @@ for (int i = 1; i < 30; i++) {
         dtable[i][j] = { par, dst };
     }
 }
+
+int a, b; cin >> a >> b;
+if (depth[a] > depth[b]) swap(a, b);
+ll ret = 0;
+int dd = depth[b] - depth[a];
+int exp = 0;
+while (dd) {
+    if (dd & 1) {
+        ret += dtable[exp][b][1];
+        b = dtable[exp][b][0];
+    }
+    exp++;
+    dd >>= 1;
+}
+for (exp = 29; exp >= 0; exp--) {
+    if (dtable[exp][b][0] != dtable[exp][a][0]) {
+        ret += dtable[exp][b][1] + dtable[exp][a][1];
+        b = dtable[exp][b][0], a = dtable[exp][a][0];
+    }
+}
+exp = 0;
+if (a != b) {
+    ret += dtable[exp][b][1] + dtable[exp][a][1];
+    b = dtable[exp][b][0], a = dtable[exp][a][0];
+}
+
