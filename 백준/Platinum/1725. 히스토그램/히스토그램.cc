@@ -1,66 +1,42 @@
-#include <bits/stdc++.h>
-#include <array>
-
-#define INF 2000000000
-#define all(x) x.begin(), x.end()
-
+#include<bits/stdc++.h>
+#include<array>
 using namespace std;
-
-typedef long long ll;
-
-vector<int> par;
-vector<ll> psum;
-int find(int a) {
-    if (par[a] != a) return par[a] = find(par[a]);
-    return a;
-}
-
-bool uni(int a, int b) {
-    if (par[a] == -1 || par[b] == -1) return false;
-    if ((a = find(a)) != (b = find(b))) {
-        par[b] = a;
-        psum[a] += psum[b];
-        return true;
-    }
-    return false;
-}
+int INF = 50000000;
+#define ll long long
+#define all(x) x.begin(), x.end()
+#define pii array<int, 2>
+#define tii array<int, 3>
 
 void solve() {
     int n; cin >> n;
-    vector<int> A(n);
-    for (int& i : A) cin >> i;
-    vector<int> idx(n);
-    iota(all(idx), 0);
-    sort(all(idx), [&](int a, int b) {
-        if (A[a] == A[b]) return a < b;
-        return A[a] > A[b];
-        });
+    vector<ll> arr(n); for (ll& i : arr) cin >> i;
 
-    par = vector<int>(n, -1);
-    psum = vector<ll>(n);
+    function<ll(int, int)> dnc = [&](int l, int r) {
+        if (l == r) return arr[l];
+        int ml = (l + r) / 2, mr = (l + r) / 2 + 1;
+        ll ans = max(dnc(l, ml), dnc(mr, r));
+        ll h = 1e9+1;
+        while (true) {
+            h = min({ h, arr[ml], arr[mr] });
+            ans = max(ans, h * (mr - ml + 1));
+            if (mr < r && (ml == l || arr[ml - 1] <= arr[mr + 1])) mr++;
+            else if (ml > l) ml--;
+            else break;
+        }
+        return ans;
+    };
 
-    ll M = 0;
-
-    for (int i : idx) {
-        par[i] = i;
-        psum[i] = 1;
-        if (i > 0) uni(i, i - 1);
-        if (i < n - 1) uni(i, i + 1);
-        M = max(M, psum[i] * A[i]);
-    }
-
-    cout << M;
+    cout << dnc(0, n - 1);
 }
 
 int main() {
-    // Fast IO
     ios_base::sync_with_stdio(false);
+    cin.tie(NULL); cout.tie(NULL);
 #ifndef ONLINE_JUDGE
     freopen("input.txt", "r", stdin);
 #endif
-    int tc = 1; //cin >> tc;
-    while (tc--) solve();
-
-
-    return 0;
+    int t = 1; //cin >> t;
+    while (t--) {
+        solve();
+    }
 }

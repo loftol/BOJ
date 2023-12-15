@@ -4,25 +4,35 @@
 
 ### 성능 요약
 
-메모리: 4208 KB, 시간: 24 ms
+메모리: 2804 KB, 시간: 16 ms
 
 ### 분류
 
 자료 구조, 분할 정복, 세그먼트 트리, 스택
 
+### 제출 일자
+
+2023년 12월 15일 18:44:55
+
 ### 문제 설명
 
-<p>A histogram is a polygon composed of a sequence of rectangles aligned at a common base line. The rectangles have equal widths but may have different heights. For example, the figure on the left shows the histogram that consists of rectangles with the heights 2, 1, 4, 5, 1, 3, 3, measured in units where 1 is the width of the rectangles:</p>
+<p>히스토그램에 대해서 알고 있는가? 히스토그램은 아래와 같은 막대그래프를 말한다.</p>
 
-<p><img alt="" src="https://www.acmicpc.net/upload/images/histogram.png" style="height:159px; width:506px"></p>
+<p style="text-align: center;"><img alt="" height="168" src="https://onlinejudgeimages.s3-ap-northeast-1.amazonaws.com/upload/201006/hist.PNG" width="231"></p>
 
-<p>Usually, histograms are used to represent discrete distributions, e.g., the frequencies of characters in texts. Note that the order of the rectangles, i.e., their heights, is important. Calculate the area of the largest rectangle in a histogram that is aligned at the common base line, too. The figure on the right shows the largest aligned rectangle for the depicted histogram.</p>
+<p>각 칸의 간격은 일정하고, 높이는 어떤 정수로 주어진다. 위 그림의 경우 높이가 각각 2 1 4 5 1 3 3이다.</p>
+
+<p>이러한 히스토그램의 내부에 가장 넓이가 큰 직사각형을 그리려고 한다. 아래 그림의 빗금 친 부분이 그 예이다. 이 직사각형의 밑변은 항상 히스토그램의 아랫변에 평행하게 그려져야 한다.</p>
+
+<p style="text-align: center;"><img alt="" height="166" src="https://onlinejudgeimages.s3-ap-northeast-1.amazonaws.com/upload/201006/histo.PNG" width="236"></p>
+
+<p>주어진 히스토그램에 대해, 가장 큰 직사각형의 넓이를 구하는 프로그램을 작성하시오.</p>
 
 ### 입력 
 
- <p>The input contains several test cases. Each test case describes a histogram and starts with an integer n, denoting the number of rectangles it is composed of. You may assume that 1<=n<=100000. Then follow n integers h<sub>1</sub>,...,h<sub>n</sub>, where 0<=h<sub>i</sub><=1000000000. These numbers denote the heights of the rectangles of the histogram in left-to-right order. The width of each rectangle is 1. A zero follows the input for the last test case.</p>
+ <p>첫 행에는 N (1 ≤ N ≤ 100,000) 이 주어진다. N은 히스토그램의 가로 칸의 수이다. 다음 N 행에 걸쳐 각 칸의 높이가 왼쪽에서부터 차례대로 주어진다. 각 칸의 높이는 1,000,000,000보다 작거나 같은 자연수 또는 0이다.</p>
 
 ### 출력 
 
- <p>For each test case output on a single line the area of the largest rectangle in the specified histogram. Remember that this rectangle must be aligned at the common base line.</p>
+ <p>첫째 줄에 가장 큰 직사각형의 넓이를 출력한다. 이 값은 20억을 넘지 않는다.</p>
 
