@@ -6,14 +6,13 @@ function<int(int)> make_scc = [&](int here) {
 	int ret = vst[here];
 	for (int next : adj[here]) if (!sccID[next]) ret = min(make_scc(next), ret);
 	if (ret == vst[here]) {
-		vector<int> scc;
+		SCC.push_back(vector<int>());
 		while (stk.size() && vst[stk.back()] >= vst[here]) {
 			sccID[stk.back()] = sccCnt;
-			scc.push_back(stk.back());
+			SCC.back().push_back(stk.back());
 			stk.pop_back();
 		}
 		sccCnt++;
-		SCC.push_back(scc);
 	}
 	return ret;
 };
