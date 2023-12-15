@@ -21,27 +21,19 @@ void solve() {
 	vector<int> stk;
 	vector<vector<int>> SCC;
 	function<pii(int)> dfs = [&](int here) {
-		vst[here] = vstCnt++;
-		stk.push_back(here);
+		if (vst[here]) return array{ vst[here], here };
+		vst[here] = vstCnt++; stk.push_back(here);
 		pii ret = { vst[here], here };
-		for (int next : adj[here]) {
-			if (!vst[next]) {
-				ret = min(dfs(next), ret);
-			}
-			else if (!sccID[next]) {
-				ret = min(array{ vst[next], next }, ret);
-			}
-		}
+		for (int next : adj[here]) 
+			if (!sccID[next]) ret = min(dfs(next), ret);
 		if (ret == array{ vst[here], here }) {
 			vector<int> scc;
-			while (stk.back() != here) {
+			while (stk.size() && vst[stk.back()] >= vst[here]) {
 				sccID[stk.back()] = sccCnt;
 				scc.push_back(stk.back());
 				stk.pop_back();
 			}
-			sccID[stk.back()] = sccCnt++;
-			scc.push_back(stk.back());
-			stk.pop_back();
+			sccCnt++;
 			sort(all(scc));
 			SCC.push_back(scc);
 		}
