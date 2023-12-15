@@ -33,9 +33,9 @@ make_sparse_table(1, 0);
 // sparse table의 exponential part 초기화 부분
 dtable[0][1] = { 1, 0 };
 for (int i = 1; i < 30; i++) {
-    for (int j = 1; j <= n; j++) {
-				// 요소에 맞춰 작성해주면 됨
-        int par = dtable[i - 1][dtable[i - 1][j][0]][0];
+	for (int j = 1; j <= n; j++) {
+		// 요소에 맞춰 작성해주면 됨
+		int par = dtable[i - 1][dtable[i - 1][j][0]][0];
         int dst = dtable[i - 1][dtable[i - 1][j][0]][1] + dtable[i - 1][j][1];
         dtable[i][j] = { par, dst };
     }
@@ -48,8 +48,8 @@ int dd = depth[b] - depth[a];
 int exp = 0;
 while (dd) {
     if (dd & 1) {
-        ret += dtable[exp][b][1];
-        b = dtable[exp][b][0];
+    	ret += dtable[exp][b][1];
+    	b = dtable[exp][b][0];
     }
     exp++;
     dd >>= 1;
