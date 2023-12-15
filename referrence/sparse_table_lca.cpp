@@ -41,6 +41,7 @@ for (int i = 1; i < 30; i++) {
 	}
 }
 
+//lca 겸 a, b 사이의 무언가 계산해주는 파트 (exp 시작 및 끝 주의해서 사용할 것)
 int a, b; cin >> a >> b;
 if (depth[a] > depth[b]) swap(a, b);
 ll ret = 0;
