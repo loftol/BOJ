@@ -41,7 +41,9 @@ for (int i = 1; i < 30; i++) {
 	}
 }
 
-//lca 겸 a, b 사이의 무언가 계산해주는 파트 (exp 시작 및 끝 주의해서 사용할 것)
+// lca 겸 a, b 사이의 무언가 계산해주는 파트 (exp 시작 및 끝 주의해서 사용할 것)
+// 보통 a, b는 제일 마지막에 변경하는게 항상 좋음
+
 int a, b; cin >> a >> b;
 if (depth[a] > depth[b]) swap(a, b);
 ll ret = 0;
@@ -49,19 +51,23 @@ int dd = depth[b] - depth[a];
 int exp = 0;
 while (dd) {
 	if (dd & 1) {
+		// 여기 잘 바꿔서 쓰기
 		ret += dtable[exp][b][1];
 		b = dtable[exp][b][0];
 	}
 	exp++;
 	dd >>= 1;
 }
+// exp 주의
 for (exp = 29; exp >= 0; exp--) {
 	if (dtable[exp][b][0] != dtable[exp][a][0]) {
+		// 여기 잘 바꿔서 쓰기
 		ret += dtable[exp][b][1] + dtable[exp][a][1];
 		b = dtable[exp][b][0], a = dtable[exp][a][0];
 	}
 }
 exp = 0;
+// 마지막에 한 칸 마저 올라가는 거 빼먹지 않게 주의
 if (a != b) {
 	ret += dtable[exp][b][1] + dtable[exp][a][1];
 	b = dtable[exp][b][0], a = dtable[exp][a][0];
