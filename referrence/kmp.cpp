@@ -5,8 +5,8 @@ string pat;
 int m = pat.size();
 vector<int> fail(m + 1);
 auto make_fail = [&]() {
-  fail = vector<int>(m);
-  for (int i = 1, j = 0; i < m; i++) {
+  	fail = vector<int>(m);
+  	for (int i = 1, j = 0; i < m; i++) {
 		while (j && pat[i] != pat[j]) j = fail[j];
 		if (pat[i] == pat[j]) fail[i + 1] = ++j;
 	}
