@@ -1,51 +1,37 @@
 #include <bits/stdc++.h>
-#include <array>
-
-#define ll long long int
-#define mat vector<vector<int>>
-#define vi vector<int>
-#define pii array<int, 2>
-#define all(v) v.begin(),v.end()
+#include<array>
 
 using namespace std;
 
+#define pii array<int, 2>
+#define ll long long
+#define tll array<ll, 3>
+
 void solve() {
-	string str, pat;
+	string pat, str;
 	getline(cin, str);
 	getline(cin, pat);
-
 	int n = str.size(), m = pat.size();
-	ll pat_hash = 0;
-	ll top_val = 1;
-	int base = 27;
-	int MOD = (1 << 30) - 1;
-	ll str_hash = 0;
-
-	for (int i = 0; i < m; i++) {
-		top_val *= base;
-		top_val %= MOD;
-		str_hash *= base, pat_hash *= base;
-		str_hash += str[i], pat_hash += pat[i];
-		pat_hash %= MOD, str_hash %= MOD;
+	vector<int> fail(m + 1);
+	
+	for (int i = 1, j = 0; i < m; i++) {
+		while (j && pat[i] != pat[j]) j = fail[j];
+		if (pat[i] == pat[j]) fail[i + 1] = ++j;
 	}
 
 	vector<int> ret;
-	if (str_hash == pat_hash) ret.push_back(0);
-
-	top_val = MOD - top_val;
-
-	for (int i = 1; i < n - m + 1; i++) {
-		str_hash *= base;
-		str_hash += str[i + m - 1];
-		str_hash += top_val * str[i - 1];
-		str_hash %= MOD;
-		if (str_hash == pat_hash) ret.push_back(i);
+	for (int i = 0, j = 0; i < n; i++) {
+		while (j && str[i] != pat[j]) j = fail[j];
+		if (str[i] == pat[j]) j++;
+		if (j == m) {
+			ret.push_back(i - j + 1);
+			j = fail[j];
+		}
 	}
 
 	cout << ret.size() << '\n';
-	for (int& i : ret) cout << i + 1 << ' ';
+	for (int& i : ret) cout << i + 1 << '\n';
 
-	return;
 }
 
 int main() {
@@ -53,7 +39,8 @@ int main() {
 #ifndef ONLINE_JUDGE
 	freopen("input.txt", "r", stdin);
 #endif
-	int tc = 1;
-	while (tc--) solve();
+	int t = 1; //cin >> t;
+	while (t--) solve();
+
 	return 0;
 }
