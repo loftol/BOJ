@@ -1,3 +1,4 @@
+// 그냥 블랙박스로 써도 될 정도임
 template<typename T>
 struct Segtree {
 	int S;
