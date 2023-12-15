@@ -4,8 +4,7 @@ function<int(int)> make_scc = [&](int here) {
 	if (vst[here]) return vst[here];
 	vst[here] = vstCnt++; stk.push_back(here);
 	int ret = vst[here];
-	for (int next : adj[here]) 
-		if (!sccID[next]) ret = min(make_scc(next), ret);
+	for (int next : adj[here]) if (!sccID[next]) ret = min(make_scc(next), ret);
 	if (ret == vst[here]) {
 		vector<int> scc;
 		while (stk.size() && vst[stk.back()] >= vst[here]) {
@@ -14,8 +13,8 @@ function<int(int)> make_scc = [&](int here) {
 			stk.pop_back();
 		}
 		sccCnt++;
-		sort(all(scc));
 		SCC.push_back(scc);
 	}
 	return ret;
 };
+for(int i = 1; i <= n; i++) if(!vst[i]) dfs(i);
