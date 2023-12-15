@@ -8,9 +8,9 @@ using namespace std;
 int n; cin >> n;
 vector<vector<pii>> adj(n + 1);
 for (int i = 1; i < n; i++) {
-    int u, v, w; cin >> u >> v >> w;
-    adj[u].push_back({ v, w });
-    adj[v].push_back({ u, w });
+	int u, v, w; cin >> u >> v >> w;
+	adj[u].push_back({ v, w });
+	adj[v].push_back({ u, w });
 }
 
 // 아래에서 30이랑 이것저것 잘 조절해서 쓸 것
