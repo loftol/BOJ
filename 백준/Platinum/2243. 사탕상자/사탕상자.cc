@@ -1,55 +1,57 @@
-# include<iostream>
-# include<vector>
-# include<algorithm>
-# include<unordered_map>
-#define pii pair<int, int>
-#define ll long long
-#define vi vector<int>
-#define mat vector<vi>
+#include <bits/stdc++.h>
+#include <array>
+
 using namespace std;
 
-int n, A, B, C, S = 1;
+#define pii array<int, 2>
+#define ll long long
+#define tll array<ll, 3>
+#define all(x) x.begin(), x.end()
 
-vector<int> seg;
+void solve() {
+	int q; cin >> q;
+	int n = 1e6, S = 1;
+	S = bit_ceil((unsigned int)n);
+	vector<int> seg(2 * S);
 
-void makeSeg() {
-	while (1'000'000 > S) S <<= 1;
-	seg = vi(2 * S);
-}
+	auto update = [&](int idx, int val) {
+		idx += S;
+		seg[idx] += val;
+		for (idx >>= 1; idx > 0; idx >>= 1)
+			seg[idx] = seg[idx * 2] + seg[2 * idx + 1];
+	};
 
-void update(int pos, int val) {
-	pos += S;
-	seg[pos] += val;
-	for (pos /= 2; pos > 0; pos /= 2)
-		seg[pos] = seg[2 * pos] + seg[2 * pos + 1];
-}
+	auto BSquery = [&](int val) {
+		int idx = 1;
+		while (idx < S) {
+			idx *= 2;
+			if (seg[idx] < val) val -= seg[idx++];
+		}
+		return idx - S;
+	};
 
-int findIdx(int sum, int idx, int val) {
-	if (idx >= S) { return idx - S; }
-	if (sum + seg[2 * idx] >= val) return findIdx(sum, 2 * idx, val);
-	return findIdx(sum + seg[2 * idx], 2 * idx + 1, val);
-}
-
-int main(void) {
-	ios_base::sync_with_stdio(0);
-	cin.tie(0); cout.tie(0);
-	
-	cin >> n;
-	makeSeg();
-
-	while(n--) {
-		cin >> A;
-		if (A == 1) {
-			cin >> B;
-			int idx = findIdx(0, 1, B);
-			cout << idx << '\n';
+	while (q--) {
+		int a; cin >> a;
+		if (a == 1) {
+			int b; cin >> b;
+			int idx = BSquery(b);
 			update(idx, -1);
+			cout << idx + 1 << '\n';
 		}
 		else {
-			cin >> B >> C;
-			update(B, C); 
+			int b, c; cin >> b >> c;
+			update(b - 1, c);
 		}
 	}
+}
+
+int main() {
+	ios::sync_with_stdio(0); cin.tie(0); cout.tie(0);
+#ifndef ONLINE_JUDGE
+	freopen("input.txt", "r", stdin);
+#endif
+	int t = 1; //cin >> t;
+	while (t--) solve();
 
 	return 0;
 }
