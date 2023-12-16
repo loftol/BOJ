@@ -49,7 +49,7 @@ struct Segtree {
 		int idx = 1;
 		while(idx < S){
 			idx *= 2;
-			if(seg[idx] < val) val-= seg[idx++];
+			if(seg[idx] < val) val -= seg[idx++];
 		}
 		return idx-S;
 	}
