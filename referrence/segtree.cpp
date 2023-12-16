@@ -44,7 +44,7 @@ struct Segtree {
 		return oper(lret, rret);
 	}
 
-	// 이 아래는 bsquery가 필요할 때만 배껴쓸 것
+	// 이 아래는 bsquery가 필요할 때만 베껴쓸 것
 	int BSquery(int val){
 		int idx = 1;
 		while(idx < S){
