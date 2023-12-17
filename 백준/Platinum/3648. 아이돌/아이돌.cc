@@ -12,8 +12,8 @@ void solve(int n, int m) {
 	vector<vector<int>> adj(2 * n + 2);
 	for (int i = 0; i < m; i++) {
 		int u, v; cin >> u >> v;
-		u = abs(u) * 2 + (((u / abs(u)) == 1) ? 0 : 1);
-		v = abs(v) * 2 + (((v / abs(v)) == 1) ? 0 : 1);
+		u = abs(u) * 2 + (u > 0 ? 0 : 1);
+		v = abs(v) * 2 + (v > 0 ? 0 : 1);
 		adj[u ^ 1].push_back(v);
 		adj[v ^ 1].push_back(u);
 	}
