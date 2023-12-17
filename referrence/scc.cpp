@@ -1,5 +1,7 @@
 // tarjan 알고리즘 - 위상정렬은 번호 역순임에 주의
-vector<int> sccID(n + 1), vst(n + 1), stk, SCC; // n은 정점 개수
+int sccCnt = 1;
+vector<int> sccID(n + 1), vst(n + 1), stk; // n은 정점 개수
+vector<vector<int>> SCC;
 function<int(int)> make_scc = [&](int here) {
 	if (vst[here]) return vst[here];
 	vst[here] = vstCnt++; stk.push_back(here);
@@ -16,4 +18,4 @@ function<int(int)> make_scc = [&](int here) {
 	}
 	return ret;
 };
-for(int i = 1; i <= n; i++) if(!vst[i]) dfs(i);
+for(int i = 1; i <= n; i++) if(!vst[i]) make_scc(i);
