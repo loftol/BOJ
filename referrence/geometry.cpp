@@ -1,3 +1,7 @@
+auto SUB = [&](pii a, pii b) {
+	return array{ a[0] - b[0], a[1] - b[1] };
+};
+
 auto OP = [&](pii a, pii b) {
 	return (ll)a[0] * b[1] - (ll)a[1] * b[0];
 };
@@ -7,13 +11,9 @@ auto DOT = [&](pii a, pii b) {
 };
 
 auto CCW = [&](pii o, pii a, pii b) {
-	pii u = { a[0] - o[0], b[0] - o[0] };
-	pii v = { a[1] - o[1], b[1] - o[1] };
+	pii u = SUB(a, o);
+	pii v = SUB(b, o);
 	ll op = OP(u, v);
 	if (op) return op / abs(op);
 	return op;
-};
-
-auto SUB = [&](pii a, pii b) {
-	return array{ a[0] - b[0], a[1] - b[1] };
 };
