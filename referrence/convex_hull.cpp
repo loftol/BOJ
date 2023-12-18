@@ -1,10 +1,11 @@
 vector<pii> points(n);
 for (auto& [x, y] : points) cin >> x >> y;
 
+// 각정렬
 sort(all(points));
 sort(points.begin() + 1, points.end(), [&](pii a, pii b) {
-		return CCW(points[0], a, b) == 1;
-		});
+	return CCW(points[0], a, b) == 1;
+	});
 
 // 컨벡스 헐 만드는 부분
 vector<pii> ch = {points[0]};
