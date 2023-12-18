@@ -11,9 +11,7 @@ auto DOT = [&](pii a, pii b) {
 };
 
 auto CCW = [&](pii o, pii a, pii b) {
-	pii u = SUB(a, o);
-	pii v = SUB(b, o);
-	ll op = OP(u, v);
+	ll op = OP(SUB(a, o), SUB(b, o));
 	if (op) return op / abs(op);
 	return op;
 };
