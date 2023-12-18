@@ -23,3 +23,17 @@ for (int i = 1; i < points.size(); i++) {
 	ch.push_back(c);
 }
 ch.pop_back();
+
+// 캘리퍼스도 덤으로..
+for (int i = 0; i < ch.size(); i++) {
+	int ni = (i + 1) % ch.size(), nj = (j + 1) % ch.size();
+	pii u = sub(ch[ni], ch[i]);
+	pii v = sub(ch[nj], ch[j]);
+
+	while (OP(u, v) >= 0) {
+		j = nj;
+		nj = (j + 1) % ch.size();
+		v = SUB(ch[nj], ch[j]);
+	}
+	pii w = SUB(ch[j], ch[i]);
+}
