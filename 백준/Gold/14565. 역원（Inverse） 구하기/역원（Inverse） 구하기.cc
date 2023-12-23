@@ -1,37 +1,49 @@
-#include <bits/stdc++.h>
-#include<array>
-
+#include<iostream>
+#include<vector>
+#include<algorithm>
+#define ll long long
 using namespace std;
 
-#define pii array<int, 2>
-#define ll long long
-#define tll array<ll, 3>
+ll A, N;
 
-
-tll eeu(ll a, ll b) { 
-	if (a == 0) return { b, 1, 0 };
-	else {
-		auto [g, x, y] = eeu(b % a, a);
-		return { g, y, x - b / a * y };
-	}
+ll sumInverse() {
+	return N - A;
 }
 
-void solve() {
-	ll a, b; cin >> a >> b;
-	ll s = a - b;
-	auto [g, x, y] = eeu(a, b);
-	x = (a + x) % a;
-	ll p = (g - 1) ? -1 : x;
-	cout << s << ' ' << p;
+ll getGcd(ll& x, ll& y, ll a, ll b) { // ax + by = 1을 찾는다 각각 초항은 A, N
+	if (!a) {
+		x = 0;
+		y = 1;
+		return b;
+	}
+	
+	ll gcd = getGcd(x, y, b % a, a);
+
+	ll tmp = x;
+	x = y - (b / a) * x;
+	y = tmp;
+
+	return gcd;
 }
 
 int main() {
-	ios::sync_with_stdio(0); cin.tie(0); cout.tie(0);
-#ifndef ONLINE_JUDGE
-	freopen("input.txt", "r", stdin);
-#endif
-	int t = 1; //cin >> t;
-	while (t--) solve();
+	ios_base::sync_with_stdio(0);
+	cin.tie(0);
+	cout.tie(0);
 
+	cin >> N >> A;
+
+	ll x = 0, y = 0;
+
+	ll gcd = getGcd(x, y, A, N);
+
+	ll ans2;
+
+	if (gcd != 1) ans2 = -1;
+	else { 
+		ans2 = x % N; 
+		if (x < 0) ans2 += N;
+	}
+	cout << sumInverse() << ' ' << ans2;
 	return 0;
 }
