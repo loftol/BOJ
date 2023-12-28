@@ -28,32 +28,29 @@ void solve() {
         return arr[a] > arr[b];
         });
 
-    set<pii> s;
+    set<int> s;
     vector<pii> intervals;
     for (int i : idx) {
-        s.insert({ arr[i][1], i });
-        auto lb = s.lower_bound({ arr[i][1] - arr[i][0], 0 });
-        int l = (*lb)[1];
-        auto rb = s.upper_bound({ arr[i][1] + arr[i][0], n + 1 });
+        s.insert(arr[i][1]);
+        auto lb = s.lower_bound(arr[i][1] - arr[i][0]);
+        int l = *lb;
+        auto rb = s.upper_bound(arr[i][1] + arr[i][0]);
         rb--;
-        int r = (*rb)[1];
+        int r = *rb;
         intervals.push_back({ l, r });
     }
 
     sort(all(intervals));
     vector<pii> stk;
     for (auto [l, r] : intervals) {
-        if (stk.size() && stk.back()[1] >= l) {
+        if (stk.size() && stk.back()[1] >= l) 
             stk.back()[1] = max(r, stk.back()[1]);
-        }
-        else {
+        else 
             stk.push_back({ l, r });
-        }
     }
     int ans = 0;
-    for (auto [l, r] : stk) {
-        ans += arr[r][1] - arr[l][1];
-    }
+    for (auto [l, r] : stk)
+        ans += r - l;
 
     cout << ans;
 }
