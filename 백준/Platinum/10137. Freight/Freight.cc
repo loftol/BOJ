@@ -1,47 +1,60 @@
-#include<bits/stdc++.h>
-#include<array>
-using namespace std;
-int INF = 1e9 + 1;
-#define ll long long
-#define all(x) x.begin(), x.end()
-#define pii array<int, 2>
-#define tii array<int, 3>
-#define tll array<long long, 3>
-#define pll array<long long, 2>
+#include <bits/stdc++.h>
 
-int MOD = 998244353;
+using namespace std;
+using ll = long long;
+using pii = pair<int, int>;
+const ll INF = 0x3f3f3f3f3f3f3f3fLL;
+
+ll N, S;
+ll arr[1000005];
+ll dp[1000005];
 
 void solve() {
-    ll n, s; cin >> n >> s;
-    vector<ll> t(n); for (ll& i : t) cin >> i;
-    deque<tll> dq;
-    ll init = 0;
-    for (int i = 1; i < n; i++) {
-        t[i] = max(t[i - 1] + 1, t[i]);
+    cin >> N >> S;
+    for (int i = 1; i <= N; i++) cin >> arr[i];
+    memset(dp, INF, sizeof(dp));
+    dp[0] = 0;
+
+    for (int i = 2; i <= N; i++) {
+        arr[i] = max(arr[i - 1] + 1, arr[i]);
+    }
+    
+    ll idx = -1;
+    deque<ll> dq = {0};
+    for (int i = 1; i <= N; i++) {
+        while (dq.size()) {
+            ll f = dq.front();
+            if (dp[f] + (i - f - 1) <= arr[i]) {
+                dq.pop_front();
+                idx = f;
+            } else break;
+        }
+
+        dp[i] = min(dp[i], arr[i] + 2 * S + i - idx - 1);
+        if (dq.size()) dp[i] = min(dp[i], dp[dq.front()] + 2 * (S + i - dq.front() - 1));
+
+        while (dq.size()) {
+            ll b = dq.back();
+            if (dp[b] - b > dp[i] - i) dq.pop_back();
+            else break;
+        }
+
+        dq.push_back(i);
     }
 
-    for (int i = 0; i < n; i++) {
-        while (dq.size() && dq.back()[0] + (i - dq.back()[1] - 1) < t[i]) {
-            init = dq.back()[1] + 1;
-            dq.pop_back();
-        }
-        ll ret = t[i] + 2 * s + (i - init);
-        if (dq.size()) {
-            ret = min(ret, dq.back()[0] + 2 * s + 2 * (i - dq.back()[1] - 1));
-        }
-        while (dq.size() && dq.front()[0] + (i - dq.front()[1]) > ret) {
-            dq.pop_front();
-        }
-        dq.push_front({ ret, i, 0});
-    }
-    cout << dq.front()[0];
+    cout << dp[N];
+
+    return;
 }
-int main() {
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL); cout.tie(NULL);
+
+int main(void) {
 #ifndef ONLINE_JUDGE
     freopen("input.txt", "r", stdin);
 #endif
-    int t = 1; //cin >> t;
+    ios::sync_with_stdio(false);
+    cin.tie(0);
+    int t = 1;
+    //cin >> t;
     while (t--) solve();
+    return 0;
 }
