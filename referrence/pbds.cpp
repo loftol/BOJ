@@ -1,7 +1,7 @@
 #include <bits/extc++.h>
 using namespace __gnu_pbds;
 template<typename T>
-class ordered_set : public tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update> {};
+class ordered_set : tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update> {};
 
 ordered_set se;
 se.insert(x);
