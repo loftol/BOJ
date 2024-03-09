@@ -3,7 +3,7 @@ using namespace __gnu_pbds;
 template<typename T>
 struct ordered_set : tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update> {};
 
-ordered_set se;
+ordered_set<int> se;
 se.insert(x);
 se.erase(y);
 se.order_of_key(p); // p보다 작은 원소 개수
