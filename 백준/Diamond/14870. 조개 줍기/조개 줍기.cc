@@ -110,7 +110,7 @@ void solve() {
 				while (r <= n) {
 					ll q1 = segs[u].query(0, r - 1) + v;
 					ll q2 = segs[u - 1].query(0, r);
-					if (q1 >= q2) r++;
+					if ((c == 'U' && q1 > q2) || (c == 'D' && q1 >= q2)) r++;
 					else break;
 				}
 				segs[u].update(l, v);
