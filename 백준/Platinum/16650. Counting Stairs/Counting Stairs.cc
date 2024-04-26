@@ -14,15 +14,13 @@ vector<vector<ll>> P(100001, vector<ll>(501, 0));
 void solve() {
     int n; cin >> n;
     ll ans = 0;
-    for (int i = 1; i <= sqrt(n); i++) {
+    for (int i = n % 2; i <= sqrt(n); i+=2) {
         int nn = n - i * i;
-        if (nn % 2 == 1) continue;
         nn /= 2;
         ans += P[nn][i];
         if (nn == 0) ans++;
-        ans %= MOD;
     }
-
+    ans %= MOD;
     cout << ans << '\n';
 }
 
