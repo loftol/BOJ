@@ -9,7 +9,7 @@ using namespace std;
 #define tii array<ll, 3>
 #define MAX (ll)1e18
 #define MOD (ll)998244353
-vector<vector<ll>> P(100001, vector<ll>(501, 0));
+ll P[100001][451];
 
 void solve() {
     int n; cin >> n;
@@ -33,7 +33,7 @@ int main() {
     // N개를 K개의 자연수로 분할하는 방법
     
     for (int i = 1; i <= 100000; i++) {
-        for (int j = 1; j <= min(i, 500); j++) {
+        for (int j = 1; j <= min(i, 450); j++) {
             if (j == 1) P[i][j] = 1;
             else if (j == i) P[i][j] = 1;
             else {
@@ -44,7 +44,7 @@ int main() {
     }
 
     for (int i = 1; i <= 100000; i++) {
-        for (int j = 1; j <= 500; j++) {
+        for (int j = 1; j <= 450; j++) {
             P[i][j] += P[i][j-1];
             P[i][j] %= MOD;
         }
