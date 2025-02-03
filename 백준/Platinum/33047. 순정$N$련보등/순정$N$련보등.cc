@@ -11,7 +11,7 @@ void solve()
     ll n, k; cin >> n >> k;
     vector<ll> board(k);
     for(ll &i : board)cin >> i;
-    vector<ll> cnts(2 * bias);
+    ll cnts[2 * bias];
     for(int i = 0; i < k; i++){
         cnts[board[i] - (i + 1) + bias]++;
     }
