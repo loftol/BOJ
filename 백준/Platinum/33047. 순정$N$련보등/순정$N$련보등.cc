@@ -7,7 +7,7 @@ using namespace std;
 
 void solve()
 {
-    int bias = 1000000;
+    int bias = 500000;
     ll n, k; cin >> n >> k;
     vector<ll> board(k);
     for(ll &i : board)cin >> i;
